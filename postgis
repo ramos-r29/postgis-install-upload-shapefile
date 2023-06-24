@@ -3,6 +3,8 @@ sudo apt-get -y install postgis
 
 su - postgres
 psql
+CREATE DATABASE db_geo;
+\c db_geo
 CREATE EXTENSION postgis;
 
 # Download shapefile
@@ -14,7 +16,7 @@ unzip BR_Municipios_2022.zip -d ./BR_Municipios_2022
 cd BR_Municipios_2022
 
 # Show srid
-ogrinfo -so -al -fid 1 BR_Municipios_2022.shp
+ogrinfo -so -al -fid 1 ./BR_Municipios_2022.shp
 
 # Genarete ddl from shp
 shp2pgsql -s 4674  -g geom -I ./BR_Municipios_2022.shp > ddl_mun2022.sql
