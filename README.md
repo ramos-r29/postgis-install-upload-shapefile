@@ -13,6 +13,7 @@
 <p>CREATE DATABASE db_geo; </p>
 <p>\c db_geo </p>
 <p>CREATE EXTENSION postgis; </p>
+<p>\q</p>
 
 <h2> Step 5: Download shapefile in website for example from IBGE </h2>
 <p>wget https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Municipios_2022.zip</p>
