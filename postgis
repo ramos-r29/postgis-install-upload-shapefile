@@ -18,8 +18,8 @@ cd BR_Municipios_2022
 # Show srid
 ogrinfo -so -al -fid 1 ./BR_Municipios_2022.shp
 
-# Genarete ddl from shp
-shp2pgsql -s 4674  -g geom -I ./BR_Municipios_2022.shp > ddl_mun2022.sql
+# Genarate ddl from shp
+shp2pgsql -s 4674  -g geom -I ./BR_Municipios_2022.shp tb_municipios_2022 > ddl_municipios_2022.sql
 
 # Import/insert in database 
-psql -h localhost -p 5432 -U postgresl db_geo < ./ddl_mun2022.sql
+psql -h localhost -p 5432 -U postgresl db_geo < ./ddl_municipios_2022.sql
