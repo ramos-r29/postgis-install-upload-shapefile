@@ -7,19 +7,19 @@ CREATE DATABASE db_geo;
 \c db_geo
 CREATE EXTENSION postgis;
 
-# Download shapefile
+# download shapefile
 wget https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Municipios_2022.zip
 
 # unzipping shapefile
 mkdir BR_Municipios_2022
 unzip BR_Municipios_2022.zip -d ./BR_Municipios_2022
-cd BR_Municipios_2022
 
-# Show srid
+# check srid
+cd BR_Municipios_2022
 ogrinfo -so -al -fid 1 ./BR_Municipios_2022.shp
 
-# Genarate ddl from shp
+# genarate ddl from shp
 shp2pgsql -s 4674  -g geom -I ./BR_Municipios_2022.shp tb_municipios_2022 > ddl_municipios_2022.sql
 
-# Import/insert in database 
-psql -h localhost -p 5432 -U postgresl db_geo < ./ddl_municipios_2022.sql
+# send data 
+psql -h localhost -p 5432 -U postgres db_geo < ./ddl_municipios_2022.sql
