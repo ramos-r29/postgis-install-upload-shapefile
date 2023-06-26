@@ -38,7 +38,32 @@
 <p>Download and install:
 https://www.postgresql.org/download/windows/</p>
 
+<h1>Make sure you have correctly installed PostgreSQL and PostGIS as per the documentation.</h1>
+
 <h2>Step 2: Downlooad shapefile:</h2>
-<p># download shapefile
-curl -o BR_Municipios_2022.zip https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Municipios_2022.zip</p>
+<p>curl -o BR_Municipios_2022.zip https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Municipios_2022.zip</p>
+
+<h2> Step 3: unzipping shapefile</h2>
+<p>mkdir BR_Municipios_2022</p>
+<p>cd BR_Municipios_2022</p>
+<p>tar -xf BR_Municipios_2022.zip</p> 
+
+<h2>Step 4: check srid</h2>
+<p>cd C:\Program Files\PostgreSQL\15\bin</p>
+<p>ogrinfo -so -al -fid 1  C:\Users\rodrigo\BR_Municipios_2022\BR_Municipios_2022.shp</p>
+
+<h2>Step 5: generate ddl from shp</h2>
+<p>shp2pgsql -s 4674 -g geom -I C:\Users\rodrigo\BR_Municipios_2022\BR_Municipios_2022.shp tb_municipios_2022 > C:\Users\rodrigo\BR_Municipios_2022\ddl_municipios_2022.sql</p>
+
+<h2>Step 6: Create database and extension PostGIS</h2>
+<p>psql -h localhost -p 5432 -U postgres</p>
+<p>CREATE DATABASE db_geo;</p>
+<p>\c db_geo</p>
+<p>CREATE EXTENSION postgis;</p>
+
+<h2>Step6: send data</h2>
+<p>psql -h localhost -p 5432 -U postgres -d db_geo -f ddl_municipios_2022.sql</p>
+
+
+
 
