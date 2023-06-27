@@ -1,0 +1,26 @@
+#Download and install
+https://www.postgresql.org/download/windows/
+
+#Downlooad shapefile
+curl -o BR_Municipios_2022.zip https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2022/Brasil/BR/BR_Municipios_2022.zip
+
+# unzipping shapefile
+mkdir BR_Municipios_2022
+cd BR_Municipios_2022
+tar -xf BR_Municipios_2022.zip
+
+#check srid
+cd C:\Program Files\PostgreSQL\15\bin
+ogrinfo -so -al -fid 1 C:\Users\rodrigo\BR_Municipios_2022\BR_Municipios_2022.shp
+
+#generate ddl from shp
+shp2pgsql -s 4674 -g geom -I C:\Users\rodrigo\BR_Municipios_2022\BR_Municipios_2022.shp tb_municipios_2022 > C:\Users\rodrigo\BR_Municipios_2022\ddl_municipios_2022.sql
+
+#Create database and extension PostGIS
+psql -h localhost -p 5432 -U postgres
+CREATE DATABASE db_geo;
+\c db_geo
+CREATE EXTENSION postgis;
+
+# send data
+psql -h localhost -p 5432 -U postgres -d db_geo -f ddl_municipios_2022.sql
