@@ -62,7 +62,7 @@ https://www.postgresql.org/download/windows/</p>
 <p>CREATE EXTENSION postgis;</p>
 
 <h2>Step6: send data</h2>
-<p>psql -h localhost -p 5432 -U postgres -d db_geo -f ddl_municipios_2022.sql</p>
+<p>psql -h localhost -p 5432 -U postgres -d db_geo -f C:\Users\rodrigo\BR_Municipios_2022\ddl_municipios_2022.sql</p>
 
 
 
